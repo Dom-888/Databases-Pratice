@@ -2,8 +2,12 @@ import pymongo
 
 import os
 
-MONGODB_URI = os.getenv("MONGO_URI") # Variabile ambientale precedentemente inserita in .bashrc
-DBS_NAME = "myTestDB" 
+if os.path.exists("env.py"):
+    import env
+
+# Variabile ambientale precedentemente inserita in .bashrc
+MONGODB_URI = os.getenv("MONGO_URI")
+DBS_NAME = "myTestDB"
 COLLECTION_NAME = "myFirstDB"
 
 
@@ -25,13 +29,16 @@ coll = conn[DBS_NAME][COLLECTION_NAME]
 # Examples:
 
 # Insert a new object in the collection
-new_doc = {'first': 'Douglas', 'last': 'Adams', 'dob': '11/03/1952', 'hair_colour': 'purple', 'occupation': 'writer', 'nationality': 'english'}
-coll.insert_one(new_doc) # To insert more than one object from a list use the insert_many() method
+new_doc = {'first': 'Douglas', 'last': 'Adams', 'dob': '11/03/1952',
+           'hair_colour': 'purple', 'occupation': 'writer', 'nationality': 'english'}
+# To insert more than one object from a list use the insert_many() method
+coll.insert_one(new_doc)
 
 # Updare an object from the collection, to remove use the delete_one() method
-documents = coll.update_one({'first': 'Rocky'}, {'$set': {'hair_colour': 'vantablack'}})
+documents = coll.update_one(
+    {'first': 'Rocky'}, {'$set': {'hair_colour': 'vantablack'}})
 
 # Print the collection in the terminal
-documents = coll.find()  
+documents = coll.find()
 for doc in documents:
     print(doc)
