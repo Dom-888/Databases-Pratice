@@ -3,7 +3,7 @@ import pymongo
 import os
 
 if os.path.exists("env.py"):
-    import env.py
+    import env
 
 # Variabile ambientale precedentemente inserita in .bashrc
 MONGODB_URI = os.getenv("MONGO_URI")
